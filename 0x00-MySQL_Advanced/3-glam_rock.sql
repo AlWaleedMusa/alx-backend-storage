@@ -1,11 +1,13 @@
--- This SQL query calculates the lifespan of each band from the 'metal_bands' table.
--- The lifespan is defined as the number of years the band was active.
+-- This SQL query retrieves the name and lifespan of each band that plays Glam rock from the 'metal_bands' table.
+-- The lifespan is calculated as the number of years the band was active.
+-- The results are ordered by lifespan in descending order.
 
 SELECT 
     band_name,  -- Select the name of the band
-    CASE 
-        WHEN split IS NULL THEN 2022 - formed  -- If the band has not split, calculate the lifespan as the current year (2022) minus the year the band was formed
-        ELSE split - formed  -- If the band has split, calculate the lifespan as the year they split minus the year they were formed
-    END AS lifespan  -- Alias the calculated lifespan as 'lifespan'
+    (IFNULL(split, 2022) - formed) AS lifespan  -- Calculate the lifespan: if the band has not split, use 2022 as the current year; otherwise, use the split year. Alias the result as 'lifespan'.
 FROM 
-    metal_bands;  -- From the 'metal_bands' table
+    metal_bands  -- From the 'metal_bands' table
+WHERE 
+    style LIKE '%Glam rock%'  -- Filter the results to include only bands with a style that includes 'Glam rock'
+ORDER BY 
+    lifespan DESC;  -- Order the results by lifespan in descending order
