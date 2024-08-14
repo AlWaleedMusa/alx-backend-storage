@@ -80,7 +80,14 @@ def call_history(method: Callable) -> Callable:
 
 def replay(fn: Callable) -> None:
     """
-    Displays the call history of a Cache class' method
+    Display the history of calls of a particular function, including the number of times it was called,
+    the inputs it received, and the outputs it produced.
+
+    Parameters:
+    - fn: The function whose call history is to be displayed (Callable).
+
+    Returns:
+    - None
     """
     if fn is None or not hasattr(fn, "__self__"):
         return
