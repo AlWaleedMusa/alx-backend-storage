@@ -8,8 +8,29 @@ from functools import wraps
 
 
 def count_calls(method: Callable) -> Callable:
+    """
+    Decorator to count the number of calls to a method.
+
+    Parameters:
+    - method: The method to be decorated (Callable).
+
+    Returns:
+    - Callable: The decorated method that increments the call count each time it is invoked.
+    """
+
     @wraps(method)
     def invoker(self, *args, **kwargs) -> Any:
+        """
+        Wrapper function that increments the call count and then calls the original method.
+
+        Parameters:
+        - self: The instance of the class.
+        - *args: Positional arguments to pass to the method.
+        - **kwargs: Keyword arguments to pass to the method.
+
+        Returns:
+        - Any: The result of the original method call.
+        """
         if isinstance(self._redis, redis.Redis):
             self._redis.incr(method.__qualname__)
         return method(self, *args, **kwargs)
