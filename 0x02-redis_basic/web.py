@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A module for request caching and tracking.""""
+"""A module for request caching and tracking."""
 
 from functools import wraps
 import redis
