@@ -6,7 +6,9 @@ import redis
 import requests
 from typing import Callable
 
+
 redis_store = redis.Redis()
+
 
 def data_cache(method: Callable) -> Callable:
     """
